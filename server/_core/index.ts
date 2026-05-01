@@ -8,6 +8,12 @@ import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
+import {
+  registerPublicRoutes,
+  wwwToApexRedirect,
+} from "../lib/public-routes";
+import { withHeadInjection } from "../lib/ssr-head";
+import { startCronScheduler } from "../lib/cron-runner";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -31,11 +37,19 @@ async function findAvailablePort(startPort: number = 3000): Promise<number> {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  // Trust the platform proxy so x-forwarded-proto / host work correctly.
+  app.set("trust proxy", 1);
+  // FIRST middleware: www -> apex 301 (Master scope §17B).
+  app.use(wwwToApexRedirect);
   // Configure body parser with larger size limit for file uploads
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  // Public routes: /health, /robots.txt, /sitemap.xml, /llms.txt, /llms-full.txt
+  registerPublicRoutes(app);
+  // SSR head injection (canonicals, JSON-LD, OG, TL;DR) for all HTML responses.
+  withHeadInjection(app);
   // tRPC API
   app.use(
     "/api/trpc",
@@ -60,6 +74,8 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    // Register node-cron schedules. Master scope §8B.
+    startCronScheduler();
   });
 }
 

@@ -1,0 +1,62 @@
+# DigitalOcean App Platform spec for Plant Curious.
+# Master scope §17, per-site scope §9.
+name: plant-curious
+region: nyc
+domains:
+  - domain: plantcurious.com
+    type: PRIMARY
+    zone: plantcurious.com
+  - domain: www.plantcurious.com
+    type: ALIAS
+    zone: plantcurious.com
+services:
+  - name: web
+    github:
+      repo: peacefulgeek/plant-curious
+      branch: main
+      deploy_on_push: true
+    build_command: pnpm install --frozen-lockfile && pnpm build
+    run_command: node scripts/start-with-cron.mjs
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    health_check:
+      http_path: /health
+    envs:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "8080"
+      - key: SITE_ORIGIN
+        value: https://plantcurious.com
+      - key: OPENAI_API_KEY
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: OPENAI_BASE_URL
+        value: https://api.deepseek.com
+      - key: OPENAI_MODEL
+        value: deepseek-v4-pro
+      - key: AUTO_GEN_ENABLED
+        value: "true"
+      - key: DATABASE_URL
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: BUNNY_PULL_ZONE
+        value: plantcurious-images.b-cdn.net
+      - key: BUNNY_STORAGE_ZONE
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: BUNNY_STORAGE_PASSWORD
+        scope: RUN_AND_BUILD_TIME
+        type: SECRET
+      - key: SMTP_HOST
+        scope: RUN_TIME
+        type: SECRET
+      - key: SMTP_USER
+        scope: RUN_TIME
+        type: SECRET
+      - key: SMTP_PASS
+        scope: RUN_TIME
+        type: SECRET
+      - key: AMAZON_AFFILIATE_TAG
+        value: plantcurious-20
