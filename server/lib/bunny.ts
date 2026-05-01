@@ -127,30 +127,62 @@ export function getLibraryEntry(index: number): LibraryEntry {
 /**
  * Score the library by how well its tags overlap with the article's tags + slug.
  * Picks a deterministic but topical hero. Master scope §9C.
+ *
+ * `claimedIndexes` lets a seeder pin one library entry per article so we don't
+ * burn the same hero on multiple posts when the corpus is bigger than the
+ * library. Pass an empty Set in production.
  */
-export function assignHeroImage(slug: string, articleTags: string[]): LibraryEntry {
+export function assignHeroImage(
+  slug: string,
+  articleTags: string[],
+  claimedIndexes?: Set<number>,
+): LibraryEntry {
   const seedHash = hash(slug);
   const lowered = articleTags.map((t) => t.toLowerCase()).concat(slug.toLowerCase().split(/[-_/]/));
   const scored = FALLBACK_LIBRARY.map((meta, i) => {
     const overlap = meta.tags.reduce((acc, t) => acc + (lowered.includes(t) ? 2 : 0), 0);
-    const tieBreak = ((seedHash + i * 37) % 7) / 100;
+    // Per-article hash-driven tie break so two articles with identical overlap
+    // do not converge on the same fallback when claims rule out their first pick.
+    const tieBreak = ((seedHash * (i + 1)) % 1000) / 10000;
     return { i, score: overlap + tieBreak };
   }).sort((a, b) => b.score - a.score);
-  return getLibraryEntry(scored[0].i);
+  const pick = scored.find((s) => !claimedIndexes || !claimedIndexes.has(s.i)) || scored[0];
+  if (claimedIndexes) claimedIndexes.add(pick.i);
+  return getLibraryEntry(pick.i);
 }
 
-export function pickGallery(slug: string, articleTags: string[], n = 4): LibraryEntry[] {
-  const used = new Set<number>();
+export function pickGallery(
+  slug: string,
+  articleTags: string[],
+  n = 4,
+  excludeIndexes?: Set<number>,
+): LibraryEntry[] {
+  const lowered = articleTags.map((t) => t.toLowerCase()).concat(slug.toLowerCase().split(/[-_/]/));
   const seedHash = hash(slug);
+  // Score every entry by topical overlap, then take the top-N unique by index.
+  const scored = FALLBACK_LIBRARY.map((meta, i) => {
+    const overlap = meta.tags.reduce((acc, t) => acc + (lowered.includes(t) ? 2 : 0), 0);
+    const tieBreak = ((seedHash + i * 37) % 41) / 1000;
+    return { i, score: overlap + tieBreak };
+  }).sort((a, b) => b.score - a.score);
+  const used = new Set<number>();
   const out: LibraryEntry[] = [];
-  for (let k = 0; k < n; k++) {
-    let pick = (seedHash + k * 13) % LIBRARY_SIZE;
-    while (used.has(pick)) pick = (pick + 1) % LIBRARY_SIZE;
-    used.add(pick);
-    out.push(getLibraryEntry(pick));
+  for (const s of scored) {
+    if (used.has(s.i)) continue;
+    if (excludeIndexes && excludeIndexes.has(s.i)) continue;
+    used.add(s.i);
+    out.push(getLibraryEntry(s.i));
+    if (out.length >= n) break;
   }
-  // Bias the first to topical match.
-  out[0] = assignHeroImage(slug, articleTags);
+  // If exclusion left us short, top up from the un-excluded score order.
+  if (out.length < n) {
+    for (const s of scored) {
+      if (used.has(s.i)) continue;
+      used.add(s.i);
+      out.push(getLibraryEntry(s.i));
+      if (out.length >= n) break;
+    }
+  }
   return out;
 }
 

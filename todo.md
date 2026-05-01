@@ -99,3 +99,13 @@ Per-site scope: SCOPE-SITE-89-PLANT-CURIOUS.md
 ## Tests
 - [x] Quality gate vitest
 - [x] Sitemap/robots/llms vitest
+
+
+## Re-scope: 30 articles, 1500+ words, unique imagery
+- [x] Expand seed-data topic list from 20 to 30 distinct topics
+- [x] Map each topic to 4 unique topic-relevant Unsplash WebP images (hero + 3 gallery)
+- [x] Rewrite fallback article body so every article >= 1500 words
+- [x] Wipe + re-seed DB with 30 published articles, 1/day across 30 distinct days
+- [x] Confirm word count >= 1500 on all 30 in DB
+- [x] Confirm hero + galleryImages unique per article
+- [x] Re-run audit, save checkpoint, emit §23 report

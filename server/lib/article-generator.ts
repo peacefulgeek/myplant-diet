@@ -64,13 +64,19 @@ function amazonUrl(asin: string): string {
 }
 
 /**
- * Decide whether this article points its external link at theoraclelover.com,
- * to maintain the 23% ratio across the corpus. Master scope §20.
+ * Decide whether this article points its external link at theoraclelover.com.
+ * Maintains an exact 23% ratio across the full TOPICS corpus by ranking each
+ * slug's hash and taking the lowest 23% deterministically. Master scope §20.
  */
 function useOracleBacklink(slug: string): boolean {
-  let h = 0;
-  for (const c of slug) h = (h * 31 + c.charCodeAt(0)) >>> 0;
-  return h % 100 < 23;
+  const ranked = TOPICS.map((t) => {
+    let h = 0;
+    for (const c of t.slug) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+    return { slug: t.slug, h };
+  }).sort((a, b) => a.h - b.h);
+  const targetCount = Math.round(TOPICS.length * 0.23);
+  const oracleSlugs = new Set(ranked.slice(0, targetCount).map((r) => r.slug));
+  return oracleSlugs.has(slug);
 }
 
 /**
@@ -253,11 +259,35 @@ function fallbackArticle(topic: Topic): GeneratedShape {
 
 <p>If you want a single rule, it would be this. The next meal counts more than the last one. ${intLink(2)} expands on this idea.</p>
 
+<h2>The pantry layout that does the work for you</h2>
+
+<p>Here is a small structural idea that took me longer to figure out than it should have. The pantry layout decides what you'll cook tonight. If your lentils are at the back behind a forgotten bag of farro, you won't make dal. If your spices are crammed into a drawer, you won't reach for them. If your good olive oil is in a tall cupboard you have to drag a chair over to reach, you won't finish a salad with it. So move things. Put the things you want to use at eye level on the shelf you open most. It feels too simple to matter, and it works anyway.</p>
+
+<p>I built a tiny system for the pantry that I now refuse to live without. Three jars at the front, always full. One holds whatever lentil or split pea I'm using that month. One holds rolled oats. One holds whatever grain I'm leaning on, usually basmati or short-grain brown rice. ${amzn(asins[0])} can do double duty for the cooking step if you're new to legumes and don't want to babysit a pot.</p>
+
+<h2>What you actually feel after a few weeks</h2>
+
+<p>I want to be careful here, because it's easy to oversell this. People who eat more plants tend to report a few things, and the science backs up the direction even if the size of each effect is smaller than the testimonials suggest. They feel less heavy after dinner. They have more steady energy in the late afternoon. Their digestion changes, sometimes uncomfortably for a week or two while gut bacteria adjust, and then settles into something they describe as more reliable. Their skin sometimes looks a little better, although that's the most variable one. Sleep is often a quiet improvement they don't notice until they look at their tracker and see deeper sleep three weeks in a row.</p>
+
+<p>None of those are guarantees. They are tendencies. The reason they show up is that whole-food plant meals tend to deliver more fiber, water, and micronutrients per calorie than the pattern they're replacing. Fiber feeds the bacteria that produce short-chain fatty acids. Those fatty acids do useful things in your gut and in the rest of your body. ${intLink(2)} digs into the fiber piece if you want a deeper look without a textbook.</p>
+
+<h2>How to handle the social part</h2>
+
+<p>The hardest part of eating more plants for most readers isn't the cooking. It's the conversations. A coworker brings doughnuts. A relative makes a comment. Someone at a dinner party asks if you're "one of those" with an eyebrow that does a lot of work. The answer that has saved me hours of awkwardness is to not announce anything. Don't call yourself anything. Don't put a label on the plate. Just eat the food in front of you that fits how you want to feel, and pass the rest along to someone who wants it.</p>
+
+<p>If someone asks why you're eating differently, you have permission to give a one-sentence answer and change the subject. "I'm trying out a few more plant-based meals" is enough. It's also true. People only push when they sense an argument waiting. If there's no argument, there's no fight.</p>
+
+<h2>What changes after the first month</h2>
+
+<p>By the end of the first month, the food has stopped being the project and the project has become the rest of your life. You stop having to think about whether dinner is plant-based or not. The default has shifted enough that the question rarely comes up. You'll catch yourself reaching for a can of chickpeas the way you used to reach for ground beef, and you'll notice a quiet, surprising sense of competence. You can feed yourself well, cheaply, and without much fuss. That's a real thing to be good at.</p>
+
+<p>Around month two, the financial picture also clears up. Lentils, oats, beans, rice, frozen vegetables, in-season produce. Those are the cheapest calories per serving in the store, by a margin. Your grocery bill tends to come down, especially if you stop replacing meat with branded substitutes. ${intLink(0)} has a longer take on the budget side if that matters to you.</p>
+
 <h2>The honest close</h2>
 
 <p>You probably won't be perfect at this. Neither am I. I had cheese on a Tuesday last week and didn't feel bad about it. Plant-curious means curious, not pure. The point is that more meals get a little greener and a little kinder over time. That's the whole project.</p>
 
-<p>If a single article ever pushes you to do this overnight, ignore it. The slow version sticks.</p>
+<p>If a single article ever pushes you to do this overnight, ignore it. The slow version sticks. It also tends to stick longer than the version that comes with a manifesto and a hashtag. Pick one shift this week, run it. If it's still working in seven days, run another. That's it. That's the entire method, and it's the one I keep coming back to in my own kitchen even when I'm tempted by something flashier.</p>
 `.trim();
   const tags = topic.tags.concat(["plant-based", "curious-eater"]);
   return {
