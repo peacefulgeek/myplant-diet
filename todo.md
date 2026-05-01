@@ -109,3 +109,17 @@ Per-site scope: SCOPE-SITE-89-PLANT-CURIOUS.md
 - [x] Confirm word count >= 1500 on all 30 in DB
 - [x] Confirm hero + galleryImages unique per article
 - [x] Re-run audit, save checkpoint, emit §23 report
+
+
+## Bunny migration + GitHub + new pages
+- [ ] Update site-config: apex = myplantdiet.com
+- [ ] Read Bunny storage credentials and pull-zone hostname
+- [ ] Build upload script: pull each FALLBACK_HOSTS image, sharp-compress to WebP, upload to myplant-diet zone
+- [ ] Swap FALLBACK_HOSTS to Bunny URLs (https://myplant-diet.b-cdn.net/...)
+- [ ] Update existing 30 article rows in DB (heroUrl + galleryUrls)
+- [ ] Verify zero unsplash.com or images.unsplash.com remain in repo or DB
+- [ ] Build Assessments page with 11 quizzes
+- [ ] Build Supplements/Herbs/TCM page with ~50 verified ASINs + amazon tag
+- [ ] Push to peacefulgeek/myplant-diet via GH_PAT
+- [ ] Re-verify §1–§22 audit
+- [ ] Save checkpoint and deliver §23 report

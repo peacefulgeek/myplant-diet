@@ -97,12 +97,12 @@ const BANNED_PHRASES: string[] = [
 ];
 
 const SELF_REFERENCES = [
-  "I write Plant Curious",
-  "Around here at Plant Curious",
-  "When I started Plant Curious",
-  "On Plant Curious",
-  "What I keep coming back to on Plant Curious",
-  "If you're new to Plant Curious",
+  "I write MyPlantDiet",
+  "Around here at MyPlantDiet",
+  "When I started MyPlantDiet",
+  "On MyPlantDiet",
+  "What I keep coming back to on MyPlantDiet",
+  "If you're new to MyPlantDiet",
 ];
 
 export interface GateInput {
@@ -199,7 +199,7 @@ export function runQualityGate(input: GateInput): GateResult {
     errors.push("no external authoritative link");
     score -= 10;
   }
-  if (!input.selfReference || !/plant curious/i.test(input.selfReference)) {
+  if (!input.selfReference || !/myplantdiet/i.test(input.selfReference)) {
     errors.push("missing self-reference line");
     score -= 5;
   }

@@ -94,7 +94,7 @@ function buildUserPrompt(topic: Topic, internalLinks: string[], asins: string[])
   const extList = externals.map((u) => `- ${u}`).join("\n");
 
   return `
-Write an HTML article for Plant Curious.
+Write an HTML article for MyPlantDiet.
 
 TITLE: ${topic.title}
 SLUG: ${topic.slug}
@@ -191,7 +191,7 @@ function fallbackArticle(topic: Topic): GeneratedShape {
 
 <h2>What this article is, and what it isn't</h2>
 
-<p>I'm not going to tell you to go vegan tomorrow. I'm not going to tell you bacon is poison. I'll tell you what's actually worked for the people who write to me at Plant Curious, which tends to be small, repeatable, and a little boring. Boring is good. Boring is what works on a Tuesday.</p>
+<p>I'm not going to tell you to go vegan tomorrow. I'm not going to tell you bacon is poison. I'll tell you what's actually worked for the people who write to me at MyPlantDiet, which tends to be small, repeatable, and a little boring. Boring is good. Boring is what works on a Tuesday.</p>
 
 <p>If you've never read me before, ${intLink(0)} is a softer entry point. Otherwise, keep going.</p>
 
@@ -235,7 +235,7 @@ function fallbackArticle(topic: Topic): GeneratedShape {
 
 <p>If you want a longer list, ${intLink(2)} is the one I keep updated.</p>
 
-<h2>What I keep coming back to on Plant Curious</h2>
+<h2>What I keep coming back to on MyPlantDiet</h2>
 
 <p>${selfRef}. The people who stick with this aren't the ones who flip a switch. They're the ones who change three small things and let the change cook. They look at their week and notice they had four plant-based dinners by accident. They also notice they slept better, which they always say cautiously, like they're not sure if they're making it up.</p>
 

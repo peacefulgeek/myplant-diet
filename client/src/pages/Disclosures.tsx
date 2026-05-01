@@ -3,7 +3,7 @@ export default function Disclosures() {
     <div className="container py-12 max-w-3xl pc-prose">
       <h1>Disclosures</h1>
       <p>
-        Plant Curious participates in the Amazon Services LLC Associates
+        MyPlantDiet participates in the Amazon Services LLC Associates
         Program, an affiliate advertising program designed to provide a means
         for sites to earn advertising fees by advertising and linking to
         Amazon.com.
@@ -24,14 +24,14 @@ export default function Disclosures() {
       </p>
       <h2>AI &amp; writing</h2>
       <p>
-        Plant Curious uses an AI writing assistant under the editorial voice of
+        MyPlantDiet uses an AI writing assistant under the editorial voice of
         The Oracle Lover. Every article is then run through a strict quality
         gate before it goes live. The byline reflects the editorial voice that
         approves the post.
       </p>
       <h2>Medical disclaimer</h2>
       <p>
-        Nothing on Plant Curious is medical advice. Talk to a registered
+        Nothing on MyPlantDiet is medical advice. Talk to a registered
         dietitian or your doctor for personalized nutrition guidance.
       </p>
     </div>

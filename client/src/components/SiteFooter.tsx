@@ -10,7 +10,7 @@ export function SiteFooter() {
             <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-primary text-primary-foreground">
               <Leaf className="h-4 w-4" />
             </span>
-            <span className="font-semibold text-lg">Plant Curious</span>
+            <span className="font-semibold text-lg">MyPlantDiet</span>
           </div>
           <p className="mt-3 max-w-md text-foreground/75 leading-relaxed">
             A gentle, image-rich plant-based publication. Practical guides, recipes,
@@ -42,7 +42,7 @@ export function SiteFooter() {
       </div>
       <div className="border-t border-border">
         <div className="container py-4 text-xs text-foreground/60 flex flex-col md:flex-row gap-2 md:justify-between">
-          <p>&copy; {new Date().getFullYear()} Plant Curious. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} MyPlantDiet. All rights reserved.</p>
           <p>
             Affiliate links are marked &quot;(paid link)&quot;. Editorial is independent.
           </p>

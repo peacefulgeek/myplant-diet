@@ -55,7 +55,7 @@ export default function StarterKit() {
               <h3 className="font-serif text-lg">{p.name}</h3>
               <p className="text-foreground/75 mt-1 text-sm">{p.why}</p>
               <a
-                href={`https://www.amazon.com/dp/${p.asin}/?tag=plantcurious-20`}
+                href={`https://www.amazon.com/dp/${p.asin}/?tag=spankyspinola-20`}
                 rel="nofollow sponsored"
                 className="mt-3 inline-flex items-center text-primary text-sm underline"
               >

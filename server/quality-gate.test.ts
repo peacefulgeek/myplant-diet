@@ -29,7 +29,7 @@ const longBody = `
 <p>You can read <a href="https://www.health.harvard.edu">Harvard Health</a> if you want a clean primer on fiber and protein. You don't need to. The shift works whether you read about it or not. The shift, however, doesn't work if you skip the cooking part.</p>
 
 <h2>The honest close</h2>
-<p>You probably won't be perfect at this. Neither am I. I had cheese on a Tuesday last week and didn't feel bad about it. Here's the thing nobody tells you. The next meal counts more than the last one. That's the whole project. Around here at Plant Curious, that's the whole project.</p>
+<p>You probably won't be perfect at this. Neither am I. I had cheese on a Tuesday last week and didn't feel bad about it. Here's the thing nobody tells you. The next meal counts more than the last one. That's the whole project. Around here at MyPlantDiet, that's the whole project.</p>
 
 <h2>What you actually do tomorrow morning</h2>
 <p>Pour oats in a jar. Cover them with milk. Cover the jar. Put it in the fridge. That's breakfast and you didn't even have to be awake for it. You can add fruit if you want. You can add peanut butter. You can leave it plain. Either way, you're done before you started.</p>
@@ -43,7 +43,7 @@ const longBody = `
 
 <p>The cooking is the practice. The thinking about the cooking is the part that derails people. Cook one pot. Cook one pan. Cook the same dinner three weeks in a row if it works. Stop reading articles, including this one, after the cooking starts. The internet doesn't get to be a guru about a Tuesday.</p>
 
-<p>Around here at Plant Curious, this is the only rule we keep. The next meal counts more than the last one. Then you do that again. That's the whole article and the whole project.</p>
+<p>Around here at MyPlantDiet, this is the only rule we keep. The next meal counts more than the last one. Then you do that again. That's the whole article and the whole project.</p>
 
 <h2>The longer version of the same idea</h2>
 <p>Most people who try to switch overnight bounce off the wall a week later, because their kitchen still has a meat-and-cheese gravity. The trick is to change the kitchen first. The kitchen has more votes than your willpower. If the pasta is in the cabinet, you cook the pasta. If the lentils are pre-cooked in the fridge, you eat the lentils. If the only blender you own is sad and loud, the smoothies don't happen. So buy a blender that doesn't sound like a chainsaw. Stock the cabinet with two pastas, a can of beans, a jar of sauce, and a bag of frozen vegetables. The kitchen now votes for you.</p>
@@ -52,7 +52,7 @@ const longBody = `
 
 <p>If you ever feel like you're slipping, count meals not days. A bad day is fine. Three bad weeks in a row is a kitchen problem. Walk through your fridge with a piece of paper. Anything you've thrown away three times in a row, stop buying. Anything you finished before it spoiled, buy more of. The fridge tells you who you are. Listen to it. The internet has lots of opinions, but the fridge knows.</p>
 
-<p>Around here at Plant Curious, that's everything I have to say about it. The next meal. Then the next one. Until eventually you stop counting.</p>
+<p>Around here at MyPlantDiet, that's everything I have to say about it. The next meal. Then the next one. Until eventually you stop counting.</p>
 `.trim();
 
 const baseInput = {
@@ -65,7 +65,7 @@ const baseInput = {
     "/articles/the-30-day-curious-eater-plan",
   ],
   externalLinks: ["https://www.health.harvard.edu"],
-  selfReference: "Around here at Plant Curious",
+  selfReference: "Around here at MyPlantDiet",
   authorByline: "The Oracle Lover",
 };
 
@@ -128,10 +128,10 @@ describe("runQualityGate", () => {
     expect(r.errors.some((e) => /forbidden/i.test(e))).toBe(true);
   });
 
-  it("self-reference picker is deterministic and returns a Plant Curious string", () => {
+  it("self-reference picker is deterministic and returns a MyPlantDiet string", () => {
     const a = pickSelfReference("some-slug");
     const b = pickSelfReference("some-slug");
     expect(a).toBe(b);
-    expect(/plant curious/i.test(a)).toBe(true);
+    expect(/myplantdiet/i.test(a)).toBe(true);
   });
 });

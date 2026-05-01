@@ -18,6 +18,8 @@ import StarterKit from "./pages/StarterKit";
 import Library from "./pages/Library";
 import Saved from "./pages/Saved";
 import AdminDashboard from "./pages/AdminDashboard";
+import Assessments from "./pages/Assessments";
+import Supplements from "./pages/Supplements";
 
 function Router() {
   return (
@@ -31,6 +33,8 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/starter-kit" component={StarterKit} />
       <Route path="/library" component={Library} />
+      <Route path="/assessments" component={Assessments} />
+      <Route path="/supplements" component={Supplements} />
       <Route path="/saved" component={Saved} />
       <Route path="/admin" component={AdminDashboard} />
       <Route path="/404" component={NotFound} />

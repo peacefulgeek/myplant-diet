@@ -142,20 +142,20 @@ function staticHead(url: string): HeadCtx {
     "/about": {
       title: `About — ${SITE.name}`,
       description:
-        "Plant Curious is a plant-based publication for the curious. Written by The Oracle Lover. Honest, gentle, useful.",
+        "MyPlantDiet is a plant-based publication for the curious. Written by The Oracle Lover. Honest, gentle, useful.",
     },
     "/disclosures": {
       title: `Disclosures — ${SITE.name}`,
       description:
-        "Affiliate disclosure, medical disclaimer, and editorial policies for Plant Curious.",
+        "Affiliate disclosure, medical disclaimer, and editorial policies for MyPlantDiet.",
     },
     "/privacy": {
       title: `Privacy — ${SITE.name}`,
-      description: "Plant Curious privacy policy.",
+      description: "MyPlantDiet privacy policy.",
     },
     "/contact": {
       title: `Contact — ${SITE.name}`,
-      description: `Reach the Plant Curious editor.`,
+      description: `Reach the MyPlantDiet editor.`,
     },
     "/starter-kit": {
       title: `Plant-Based Starter Kit — ${SITE.name}`,

@@ -4,19 +4,12 @@ import { SITE } from "./site-config";
  * Bunny CDN image library. Master scope §9.
  *
  * The repo holds zero binary images. Every hero/gallery image is referenced
- * by a Bunny CDN URL. The library is generated as `lib-01.webp` ... `lib-40.webp`
- * inside the `library/` directory of the configured pull zone.
- *
- * If real Bunny credentials aren't configured yet, we fall back to deterministic
- * Unsplash CDN URLs (also remote, also zero bytes in the repo) so the site looks
- * complete from the first deploy. The moment BUNNY_API_KEY is present and the
- * library is uploaded, every URL flips to Bunny without a code change.
+ * by a Bunny CDN URL. The library lives at /library/lib-NN.webp inside the
+ * configured pull zone. Forty unique compressed WebP images cover the niche.
  */
 
 const LIBRARY_SIZE = 40;
 
-// Curated, copyright-permissive plant-based imagery (remote only).
-// These are deterministic placeholders; replace via Bunny upload at any time.
 const FALLBACK_LIBRARY: { path: string; alt: string; tags: string[] }[] = [
   { path: "lib-01", alt: "Halved avocado on a marble board", tags: ["fats", "breakfast", "avocado"] },
   { path: "lib-02", alt: "Roasted vegetable sheet pan with golden squash", tags: ["dinner", "squash", "roast"] },
@@ -60,54 +53,6 @@ const FALLBACK_LIBRARY: { path: string; alt: string; tags: string[] }[] = [
   { path: "lib-40", alt: "A leafy green smoothie in a glass", tags: ["smoothie", "greens", "breakfast"] },
 ];
 
-// Public WebP fallbacks while Bunny zone is empty. Remote, no repo bytes.
-const FALLBACK_HOSTS = [
-  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1467019972079-a273e1bc9173?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1515543237350-b3eea1ec8082?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1505253213348-cd54c92b37e7?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1473093226795-af9932fe5856?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1464454709131-ffd692591ee5?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1494390248081-4e521a5940db?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1502741338009-cac2772e18bc?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1564844536311-de546a28c87d?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1517816743773-6e0fd518b4a6?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1543352634-99a5d50ae78e?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1524594152303-9fd13543fe6e?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1604152135912-04a022e23696?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1498837167922-ddd27525d352?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1565958011703-44f9829ba187?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1543353071-873f17a7a088?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1530092285049-1c42085fd395?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1551782450-a2132b4ba21d?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1490818387583-1baba5e638af?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1517242810446-cc8951b2be40?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1572441713132-c542fc4c1a48?auto=format&fit=crop&w=1600&q=80&fm=webp",
-  "https://images.unsplash.com/photo-1493770348161-369560ae357d?auto=format&fit=crop&w=1600&q=80&fm=webp",
-];
-
-function bunnyConfigured(): boolean {
-  return Boolean(SITE.bunny.apiKey && SITE.bunny.pullZone);
-}
-
 export interface LibraryEntry {
   url: string;
   alt: string;
@@ -117,11 +62,8 @@ export interface LibraryEntry {
 export function getLibraryEntry(index: number): LibraryEntry {
   const i = ((index % LIBRARY_SIZE) + LIBRARY_SIZE) % LIBRARY_SIZE;
   const meta = FALLBACK_LIBRARY[i];
-  if (bunnyConfigured()) {
-    const base = SITE.bunny.pullZone.replace(/\/+$/, "");
-    return { url: `${base}/library/${meta.path}.webp`, alt: meta.alt, tags: meta.tags };
-  }
-  return { url: FALLBACK_HOSTS[i] || FALLBACK_HOSTS[0], alt: meta.alt, tags: meta.tags };
+  const base = SITE.bunny.pullZone.replace(/\/+$/, "");
+  return { url: `${base}/library/${meta.path}.webp`, alt: meta.alt, tags: meta.tags };
 }
 
 /**
@@ -130,7 +72,7 @@ export function getLibraryEntry(index: number): LibraryEntry {
  *
  * `claimedIndexes` lets a seeder pin one library entry per article so we don't
  * burn the same hero on multiple posts when the corpus is bigger than the
- * library. Pass an empty Set in production.
+ * library.
  */
 export function assignHeroImage(
   slug: string,
@@ -141,8 +83,6 @@ export function assignHeroImage(
   const lowered = articleTags.map((t) => t.toLowerCase()).concat(slug.toLowerCase().split(/[-_/]/));
   const scored = FALLBACK_LIBRARY.map((meta, i) => {
     const overlap = meta.tags.reduce((acc, t) => acc + (lowered.includes(t) ? 2 : 0), 0);
-    // Per-article hash-driven tie break so two articles with identical overlap
-    // do not converge on the same fallback when claims rule out their first pick.
     const tieBreak = ((seedHash * (i + 1)) % 1000) / 10000;
     return { i, score: overlap + tieBreak };
   }).sort((a, b) => b.score - a.score);
@@ -159,7 +99,6 @@ export function pickGallery(
 ): LibraryEntry[] {
   const lowered = articleTags.map((t) => t.toLowerCase()).concat(slug.toLowerCase().split(/[-_/]/));
   const seedHash = hash(slug);
-  // Score every entry by topical overlap, then take the top-N unique by index.
   const scored = FALLBACK_LIBRARY.map((meta, i) => {
     const overlap = meta.tags.reduce((acc, t) => acc + (lowered.includes(t) ? 2 : 0), 0);
     const tieBreak = ((seedHash + i * 37) % 41) / 1000;
@@ -174,7 +113,6 @@ export function pickGallery(
     out.push(getLibraryEntry(s.i));
     if (out.length >= n) break;
   }
-  // If exclusion left us short, top up from the un-excluded score order.
   if (out.length < n) {
     for (const s of scored) {
       if (used.has(s.i)) continue;

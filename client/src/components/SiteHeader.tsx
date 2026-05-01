@@ -4,7 +4,9 @@ import { Leaf, Search, Bookmark, Sparkles } from "lucide-react";
 const NAV_LINKS = [
   { href: "/", label: "Home" },
   { href: "/articles", label: "Articles" },
-  { href: "/library", label: "Plant Library" },
+  { href: "/library", label: "Library" },
+  { href: "/assessments", label: "Assessments" },
+  { href: "/supplements", label: "Supplements" },
   { href: "/starter-kit", label: "Starter Kit" },
   { href: "/about", label: "About" },
 ];
@@ -18,7 +20,7 @@ export function SiteHeader() {
           <span className="inline-flex items-center justify-center h-9 w-9 rounded-full bg-primary text-primary-foreground pc-shadow">
             <Leaf className="h-4 w-4" />
           </span>
-          <span className="hidden sm:inline">Plant Curious</span>
+          <span className="hidden sm:inline">MyPlantDiet</span>
         </Link>
         <nav className="hidden md:flex items-center gap-1 text-sm">
           {NAV_LINKS.map((l) => (

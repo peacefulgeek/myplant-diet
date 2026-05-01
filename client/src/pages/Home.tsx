@@ -3,8 +3,7 @@ import { Link } from "wouter";
 import { Sparkles, BookOpen, Leaf } from "lucide-react";
 import { ArticleCard } from "@/components/ArticleCard";
 
-const HERO_BG =
-  "https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1600&q=80&fm=webp";
+const HERO_BG = "https://myplant-diet.b-cdn.net/library/lib-06.webp";
 
 export default function Home() {
   const { data, isLoading } = trpc.articles.list.useQuery({ limit: 24, offset: 0 });
@@ -56,7 +55,7 @@ export default function Home() {
               <div className="absolute inset-0 bg-gradient-to-tr from-[oklch(0.55_0.12_138/0.18)] to-[oklch(0.71_0.13_60/0.18)] mix-blend-multiply" />
             </div>
             <div className="absolute -bottom-6 -left-4 hidden md:block bg-card pc-shadow-lg rounded-2xl px-4 py-3 text-sm">
-              <p className="text-foreground/65">Today on Plant Curious</p>
+              <p className="text-foreground/65">Today on MyPlantDiet</p>
               <p className="font-medium">{featured?.title || "Fresh ideas, every weekday"}</p>
             </div>
           </div>
@@ -126,7 +125,7 @@ export default function Home() {
               href="/about"
               className="mt-4 inline-flex items-center gap-2 rounded-full bg-primary text-primary-foreground px-4 py-2 text-sm"
             >
-              Learn more about Plant Curious
+              Learn more about MyPlantDiet
             </Link>
           </div>
         ) : (

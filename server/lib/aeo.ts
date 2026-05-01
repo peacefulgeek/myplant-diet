@@ -36,7 +36,7 @@ export function buildCanonical(req: Request): string {
  */
 export function buildRobotsTxt(): string {
   const lines = [
-    "# Plant Curious — robots.txt",
+    "# MyPlantDiet — robots.txt",
     "User-agent: *",
     "Allow: /",
     "",
@@ -87,6 +87,8 @@ export function buildSitemapXml(articles: Pick<Article, "slug" | "lastModifiedAt
     { loc: `${origin}/contact`, lastmod: today, priority: "0.4" },
     { loc: `${origin}/starter-kit`, lastmod: today, priority: "0.7" },
     { loc: `${origin}/library`, lastmod: today, priority: "0.7" },
+    { loc: `${origin}/assessments`, lastmod: today, priority: "0.8" },
+    { loc: `${origin}/supplements`, lastmod: today, priority: "0.8" },
   ];
   const xml: string[] = [];
   xml.push('<?xml version="1.0" encoding="UTF-8"?>');

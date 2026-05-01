@@ -1,12 +1,12 @@
 /**
  * Site identity. The apex is the canonical hostname (no www).
- * Update SITE_APEX once a real domain is bound — until then the
- * dev/preview URL is used as a graceful fallback.
+ * Bunny CDN credentials are baked in here so the site is fully self-contained
+ * with the single OPENAI_API_KEY env var; nothing else is required at runtime.
  */
 export const SITE = {
-  name: "Plant Curious",
+  name: "MyPlantDiet",
   tagline: "Curious about plants? Start here.",
-  apex: process.env.SITE_APEX || "plantcurious.com",
+  apex: process.env.SITE_APEX || "myplantdiet.com",
   author: "The Oracle Lover",
   authorUrl: "https://theoraclelover.com",
   authorCredential:
@@ -14,12 +14,15 @@ export const SITE = {
   niche:
     "transitioning to plant-based eating, vegan-curious, flexitarian, conscious eating",
   amazonTag: process.env.AMAZON_TAG || "spankyspinola-20",
-  // Bunny CDN config — placeholder until creds are provided.
   bunny: {
-    storageZone: process.env.BUNNY_STORAGE_ZONE || "plant-curious",
-    apiKey: process.env.BUNNY_API_KEY || "",
-    pullZone: process.env.BUNNY_PULL_ZONE || "https://plant-curious.b-cdn.net",
-    hostname: process.env.BUNNY_HOSTNAME || "ny.storage.bunnycdn.com",
+    storageZone: process.env.BUNNY_STORAGE_ZONE || "myplant-diet",
+    apiKey:
+      process.env.BUNNY_API_KEY ||
+      "dc6bdfdd-6454-403e-942b924b59ec-4a7e-49db",
+    pullZone:
+      process.env.BUNNY_PULL_ZONE || "https://myplant-diet.b-cdn.net",
+    hostname:
+      process.env.BUNNY_HOSTNAME || "ny.storage.bunnycdn.com",
   },
 } as const;
 

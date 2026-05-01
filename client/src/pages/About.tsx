@@ -3,9 +3,9 @@ import { Link } from "wouter";
 export default function About() {
   return (
     <div className="container py-12 max-w-3xl">
-      <h1 className="font-serif text-4xl">About Plant Curious</h1>
+      <h1 className="font-serif text-4xl">About MyPlantDiet</h1>
       <p className="mt-4 text-lg text-foreground/80 leading-relaxed">
-        Plant Curious is a friendly, image-rich publication for people who are
+        MyPlantDiet is a friendly, image-rich publication for people who are
         thinking about eating more plants. Not vegan-or-bust. Not preachy. Just
         practical writing for the curious eater.
       </p>
@@ -23,7 +23,7 @@ export default function About() {
 
       <h2 className="font-serif text-2xl mt-10">How we publish</h2>
       <p className="mt-3 text-foreground/80 leading-relaxed">
-        Plant Curious publishes new articles on a steady weekday cadence. Every
+        MyPlantDiet publishes new articles on a steady weekday cadence. Every
         article passes a strict quality gate before it&apos;s allowed to go
         live. That means a TL;DR up top, an honest byline, internal links to
         related reading, at least one authoritative external citation, and zero
@@ -32,7 +32,7 @@ export default function About() {
 
       <h2 className="font-serif text-2xl mt-10">How we make money</h2>
       <p className="mt-3 text-foreground/80 leading-relaxed">
-        Plant Curious is reader-supported and partly funded by Amazon affiliate
+        MyPlantDiet is reader-supported and partly funded by Amazon affiliate
         links. Every paid link is labeled with &quot;(paid link)&quot;. We only
         recommend things we&apos;d give a friend. See{" "}
         <Link href="/disclosures" className="text-primary underline">

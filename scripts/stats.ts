@@ -1,0 +1,17 @@
+import "../server/_core/env";
+import mysql from "mysql2/promise";
+const c = await mysql.createConnection(process.env.DATABASE_URL!);
+const [pubs] = await c.execute("SELECT COUNT(*) c FROM articles WHERE status='published'");
+const [days] = await c.execute("SELECT COUNT(DISTINCT DATE(publishedAt)) c FROM articles WHERE status='published'");
+const [words] = await c.execute("SELECT MIN(wordCount) mn, MAX(wordCount) mx, ROUND(AVG(wordCount)) av FROM articles WHERE status='published'");
+const [bunny] = await c.execute("SELECT COUNT(*) c FROM articles WHERE heroUrl LIKE 'https://myplant-diet.b-cdn.net/%'");
+const [oracle] = await c.execute("SELECT COUNT(*) c FROM articles WHERE status='published' AND body LIKE '%theoraclelover.com%'");
+const [crons] = await c.execute("SELECT COUNT(*) c, COUNT(DISTINCT DATE(ranAt)) d FROM cronRuns");
+console.log("published:", (pubs as any)[0]);
+console.log("distinct days:", (days as any)[0]);
+console.log("words:", (words as any)[0]);
+console.log("bunny heroes:", (bunny as any)[0]);
+const oc = (oracle as any)[0].c, pc = (pubs as any)[0].c;
+console.log("oracle backlinks:", oc, "/", pc, "=", (oc * 100 / pc).toFixed(1) + "%");
+console.log("cron runs:", (crons as any)[0]);
+await c.end();

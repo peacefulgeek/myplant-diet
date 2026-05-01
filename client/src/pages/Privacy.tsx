@@ -3,7 +3,7 @@ export default function Privacy() {
     <div className="container py-12 max-w-3xl pc-prose">
       <h1>Privacy</h1>
       <p>
-        Plant Curious collects only what it needs to make the site work and to
+        MyPlantDiet collects only what it needs to make the site work and to
         understand how it&apos;s used. We don&apos;t sell or rent your data.
       </p>
       <h2>What we collect</h2>
@@ -24,7 +24,7 @@ export default function Privacy() {
       </p>
       <h2>Contact</h2>
       <p>
-        Email us at hello@plantcurious.com for privacy questions or data
+        Email us at hello@myplantdiet.com for privacy questions or data
         deletion requests.
       </p>
     </div>

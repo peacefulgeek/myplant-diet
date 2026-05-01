@@ -4,7 +4,7 @@ export default function Contact() {
       <h1>Contact</h1>
       <p>
         For editorial questions, partnerships, or feedback, write to{" "}
-        <a href="mailto:hello@plantcurious.com">hello@plantcurious.com</a>.
+        <a href="mailto:hello@myplantdiet.com">hello@myplantdiet.com</a>.
       </p>
       <p>
         We answer within a few business days. Affiliate inquiries should

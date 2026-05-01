@@ -54,14 +54,14 @@ describe("AEO library", () => {
   it("sitemap.xml lists every article with lastmod and absolute apex URL", () => {
     const xml = buildSitemapXml(sampleArticles as never);
     expect(xml).toContain("<urlset");
-    expect(xml).toContain("https://plantcurious.com/articles/tofu-isnt-bland-youre-cooking-it-wrong");
+    expect(xml).toContain("https://myplantdiet.com/articles/tofu-isnt-bland-youre-cooking-it-wrong");
     expect(xml).toContain("<lastmod>2026-04-20</lastmod>");
     expect(xml).not.toContain("manus.computer");
   });
 
   it("llms.txt groups by category and includes summary line", () => {
     const txt = buildLlmsTxt(sampleArticles as never);
-    expect(txt).toContain("# Plant Curious");
+    expect(txt).toContain("# MyPlantDiet");
     expect(txt).toContain("## recipes");
     expect(txt).toContain("## nutrition");
     expect(txt).toContain("Tofu isn't bland");
