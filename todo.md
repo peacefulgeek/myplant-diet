@@ -135,3 +135,9 @@ Per-site scope: SCOPE-SITE-89-PLANT-CURIOUS.md
 - [ ] Each article ≥1800 words, all gates pass, Oracle ratio 23%
 - [ ] Verify queued/published counts, image distinctness, no Manus refs
 - [ ] Push to GitHub
+
+
+## Assessments + Supplements expansion
+- [ ] Reduce Assessments to 9 nurturing self-checks
+- [ ] Expand Supplements/Herbs/TCM to 200+ items, each with image + 3-sentence description + verified ASIN tagged spankyspinola-20
+- [ ] Push to GitHub

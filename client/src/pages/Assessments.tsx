@@ -247,44 +247,6 @@ const ASSESSMENTS: Assessment[] = [
     ],
   },
   {
-    slug: "swap-readiness",
-    title: "Dairy and meat swap readiness",
-    blurb: "Which swaps you'll actually keep.",
-    hero: "https://myplant-diet.b-cdn.net/library/lib-08.webp",
-    category: "starter",
-    questions: [
-      { q: "Coffee creamer", options: [
-        { label: "Dairy only", weight: 0 },
-        { label: "Tried oat once", weight: 1 },
-        { label: "Switched recently", weight: 2 },
-        { label: "Plant-based and stuck", weight: 3 },
-      ]},
-      { q: "Burgers", options: [
-        { label: "Beef only", weight: 0 },
-        { label: "Open to bean burgers", weight: 1 },
-        { label: "Make bean burgers monthly", weight: 2 },
-        { label: "Plant burgers are the default", weight: 3 },
-      ]},
-      { q: "Cheese", options: [
-        { label: "Daily", weight: 0 },
-        { label: "Most meals", weight: 1 },
-        { label: "Sometimes", weight: 2 },
-        { label: "Optional", weight: 3 },
-      ]},
-      { q: "Milk in cereal or oatmeal", options: [
-        { label: "Dairy", weight: 0 },
-        { label: "Trying soy or oat", weight: 1 },
-        { label: "Mostly plant", weight: 2 },
-        { label: "Plant only", weight: 3 },
-      ]},
-    ],
-    bands: [
-      { min: 0, max: 4, title: "Beginning", advice: "Pick one swap and run it for a month. Coffee creamer is the easiest first win.", reading: "/articles?category=swaps" },
-      { min: 5, max: 8, title: "Halfway", advice: "Two more wins lock the routine. Stack them rather than spreading them out.", reading: "/articles?category=dinner" },
-      { min: 9, max: 12, title: "Already there", advice: "Maintain. Use the recipe library to keep variety high.", reading: "/articles" },
-    ],
-  },
-  {
     slug: "kitchen-skill",
     title: "Plant-based kitchen skill",
     blurb: "How fluent are you actually? No judgment, just calibration.",
@@ -314,38 +276,6 @@ const ASSESSMENTS: Assessment[] = [
       { min: 0, max: 3, title: "Beginner", advice: "One technique at a time. The aromatic base for soup is a great first lesson.", reading: "/articles?category=technique" },
       { min: 4, max: 6, title: "Comfortable", advice: "Add one new technique a month. Try a slow braise next.", reading: "/articles?category=technique" },
       { min: 7, max: 9, title: "Fluent", advice: "You are kitchen-fluent. Try one new global cuisine this month.", reading: "/articles" },
-    ],
-  },
-  {
-    slug: "shopping-style",
-    title: "Plant grocery style",
-    blurb: "Are you a planner or an improviser? Either works, but the lists are different.",
-    hero: "https://myplant-diet.b-cdn.net/library/lib-13.webp",
-    category: "starter",
-    questions: [
-      { q: "Do you write a list before shopping?", options: [
-        { label: "Never", weight: 0 },
-        { label: "Sometimes", weight: 1 },
-        { label: "Most weeks", weight: 2 },
-        { label: "Always", weight: 3 },
-      ]},
-      { q: "Do you plan meals first or buy first?", options: [
-        { label: "Buy first", weight: 0 },
-        { label: "Mostly buy first", weight: 1 },
-        { label: "Mostly plan first", weight: 2 },
-        { label: "Always plan first", weight: 3 },
-      ]},
-      { q: "Frequency of shopping", options: [
-        { label: "Multiple short trips", weight: 1 },
-        { label: "Twice a week", weight: 2 },
-        { label: "Once a week", weight: 3 },
-        { label: "Less than weekly", weight: 2 },
-      ]},
-    ],
-    bands: [
-      { min: 0, max: 3, title: "Improviser", advice: "Build a five-thing pantry list. Improvise from there. Save planning for proteins.", reading: "/articles?category=pantry" },
-      { min: 4, max: 6, title: "Mixed", advice: "Pick a planning style. Either every Sunday or every Thursday. Repetition wins.", reading: "/articles?category=meal-prep" },
-      { min: 7, max: 9, title: "Planner", advice: "You have the system. Look for one new ingredient a month to keep it fresh.", reading: "/articles" },
     ],
   },
   {
@@ -435,7 +365,7 @@ export default function Assessments() {
         </span>
         <h1 className="font-serif text-4xl mt-2">Plant-based assessments</h1>
         <p className="mt-3 text-lg text-foreground/75 leading-relaxed">
-          Eleven short, useful self-checks. Each takes about 90 seconds. They are
+          Nine short, lovely self-checks. Each takes about 90 seconds. They are
           calibration, not diagnosis. Pick one, take it, and you'll be pointed
           to the next thing actually worth reading.
         </p>
