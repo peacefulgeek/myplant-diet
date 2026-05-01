@@ -2,17 +2,12 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useParams, Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { Bookmark, ArrowLeft, Clock, User } from "lucide-react";
-import { useAuth } from "@/_core/hooks/useAuth";
 import { toast } from "sonner";
+import { toggleSavedSlug, getSavedSlugs } from "@/pages/Saved";
 
 export default function ArticleDetail() {
   const { slug } = useParams<{ slug: string }>();
-  const { isAuthenticated } = useAuth();
   const { data, isLoading } = trpc.articles.bySlug.useQuery({ slug: slug || "" });
-  const toggleSaved = trpc.saved.toggle.useMutation({
-    onSuccess: ({ saved }) => toast.success(saved ? "Saved" : "Removed from saved"),
-    onError: () => toast.error("Sign in to save articles"),
-  });
 
   const headings = useMemo(() => {
     if (!data?.body) return [] as { id: string; text: string }[];
@@ -123,15 +118,13 @@ export default function ArticleDetail() {
           )}
           <button
             onClick={() => {
-              if (!isAuthenticated) {
-                toast.message("Sign in to save articles");
-                return;
-              }
-              toggleSaved.mutate({ articleId: data.id });
+              if (!data?.slug) return;
+              const isSaved = toggleSavedSlug(data.slug);
+              toast.success(isSaved ? "Saved on this device" : "Removed from saved");
             }}
             className="ml-auto inline-flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-sm hover:bg-accent"
           >
-            <Bookmark className="h-3.5 w-3.5" /> Save
+            <Bookmark className={`h-3.5 w-3.5 ${data?.slug && getSavedSlugs().includes(data.slug) ? "fill-current" : ""}`} /> Save
           </button>
         </div>
       </header>

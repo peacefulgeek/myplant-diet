@@ -2,6 +2,23 @@ import { getDeepseek, getModel, isWritingEnabled } from "./openai-client";
 import { buildSystemPrompt } from "./voice-spec";
 import { runQualityGate, pickSelfReference } from "./quality-gate";
 import { TOPICS, asinTitle, pickAsinsByTags, type Topic } from "./seed-data";
+import { buildTopicBank } from "./topic-bank";
+
+// Merged corpus used for internal-link picking + Oracle ratio. Stable across calls.
+let _CORPUS: Topic[] | null = null;
+function CORPUS(): Topic[] {
+  if (_CORPUS) return _CORPUS;
+  const seen = new Set<string>();
+  const all: Topic[] = [];
+  for (const t of TOPICS) {
+    if (!seen.has(t.slug)) { seen.add(t.slug); all.push(t); }
+  }
+  for (const t of buildTopicBank(500)) {
+    if (!seen.has(t.slug)) { seen.add(t.slug); all.push(t); }
+  }
+  _CORPUS = all;
+  return all;
+}
 import { SITE, siteOrigin } from "./site-config";
 import { assignHeroImage, pickGallery } from "./bunny";
 
@@ -43,7 +60,7 @@ const AUTHORITATIVE_EXTERNALS = [
  * Pick 3 internal-link slugs that are not the current one. Master scope §14.
  */
 function pickInternalLinks(currentSlug: string, count = 4): string[] {
-  const others = TOPICS.filter((t) => t.slug !== currentSlug).map((t) => t.slug);
+  const others = CORPUS().filter((t) => t.slug !== currentSlug).map((t) => t.slug);
   const picks: string[] = [];
   let h = 0;
   for (const c of currentSlug) h = (h * 31 + c.charCodeAt(0)) >>> 0;
@@ -69,12 +86,13 @@ function amazonUrl(asin: string): string {
  * slug's hash and taking the lowest 23% deterministically. Master scope §20.
  */
 function useOracleBacklink(slug: string): boolean {
-  const ranked = TOPICS.map((t) => {
+  const corpus = CORPUS();
+  const ranked = corpus.map((t) => {
     let h = 0;
     for (const c of t.slug) h = (h * 31 + c.charCodeAt(0)) >>> 0;
     return { slug: t.slug, h };
   }).sort((a, b) => a.h - b.h);
-  const targetCount = Math.round(TOPICS.length * 0.23);
+  const targetCount = Math.round(corpus.length * 0.23);
   const oracleSlugs = new Set(ranked.slice(0, targetCount).map((r) => r.slug));
   return oracleSlugs.has(slug);
 }

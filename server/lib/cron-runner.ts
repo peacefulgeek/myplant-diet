@@ -283,18 +283,8 @@ export function startCronScheduler(): void {
   // when no real work is needed.
   cron.schedule("0 */6 * * *", () => logCronRun("heartbeat", "ok", "alive"));
 
-  // Boot announcement (one cron tick at +30s) so the first deploy shows life
-  // before the next 9am publisher fires.
-  cron.schedule("30 * * * * *", async function bootHeartbeat() {
-    await logCronRun("boot-heartbeat", "ok", "scheduler booted");
-    bootHeartbeat.toString();
-  });
-  // Disable the boot heartbeat after one run.
-  setTimeout(() => {
-    // node-cron has no remove API for inline tasks, so we no-op after the
-    // first heartbeat by leaving the row in cronRuns. The line above runs
-    // every minute at :30 — harmless and useful as a liveness signal.
-  }, 0);
+  // Boot announcement: log once at scheduler startup so the deploy shows life.
+  void logCronRun("boot-heartbeat", "ok", "scheduler booted");
 }
 
 /** Exposed for tRPC admin: list recent cron runs. */

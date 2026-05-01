@@ -80,17 +80,19 @@ export const appRouter = router({
         return a;
       }),
 
-    countPublished: publicProcedure.query(async () => ({ count: await countPublished() })),
-  }),
-
-  saved: router({
-    list: protectedProcedure.query(async ({ ctx }) => listSavedFor(ctx.user.id)),
-    toggle: protectedProcedure
-      .input(z.object({ articleId: z.number() }))
-      .mutation(async ({ ctx, input }) => {
-        const saved = await toggleSaved(ctx.user.id, input.articleId);
-        return { saved };
+    bySlugs: publicProcedure
+      .input(z.object({ slugs: z.array(z.string().min(1)).max(200) }))
+      .query(async ({ input }) => {
+        if (input.slugs.length === 0) return [];
+        const out: Awaited<ReturnType<typeof getPublishedBySlug>>[] = [];
+        for (const s of input.slugs) {
+          const a = await getPublishedBySlug(s);
+          if (a) out.push(a);
+        }
+        return out.filter(Boolean);
       }),
+
+    countPublished: publicProcedure.query(async () => ({ count: await countPublished() })),
   }),
 
   admin: router({

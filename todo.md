@@ -123,3 +123,15 @@ Per-site scope: SCOPE-SITE-89-PLANT-CURIOUS.md
 - [ ] Push to peacefulgeek/myplant-diet via GH_PAT
 - [ ] Re-verify §1–§22 audit
 - [ ] Save checkpoint and deliver §23 report
+
+
+## 500-article one-time pre-seed + Manus-strip
+
+- [ ] Audit + remove Manus runtime deps (LLM, storage, scheduler, CDN)
+- [ ] Confirm only node-cron schedules (no Manus cron) for daily-publish, spotlight, refresh-monthly, refresh-quarterly, asin-health
+- [ ] Generate 500 unique topics
+- [ ] Expand Bunny WebP library to support 500 unique heroes
+- [ ] Pre-seed 500 articles, all queued (not published)
+- [ ] Each article ≥1800 words, all gates pass, Oracle ratio 23%
+- [ ] Verify queued/published counts, image distinctness, no Manus refs
+- [ ] Push to GitHub
